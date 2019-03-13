@@ -1,0 +1,27 @@
+
+plugins {
+    id 'org.springframework.boot' version '2.1.1.RELEASE'
+    id 'groovy'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group 'com.softage.task'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'mysql:mysql-connector-java'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.codehaus.groovy:groovy-all:2.4.16'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.2-groovy-2.4'
+    // https://mvnrepository.com/artifact/org.spockframework/spock-spring
+    testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.2-groovy-2.4'
+
+}
