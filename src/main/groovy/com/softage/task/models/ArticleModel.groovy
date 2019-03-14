@@ -10,7 +10,7 @@ class ArticleModel {
     @GeneratedValue( strategy = GenerationType.AUTO, generator = 'native' )
     private Long id
 
-    @OneToOne( cascade = [CascadeType.ALL] )
+    @OneToOne( cascade = [CascadeType.ALL], orphanRemoval = true )
 //    @JoinTable( name = 'article_image', joinColumns = @JoinColumn ( name = 'article_id' ),
 //    inverseJoinColumns = @JoinColumn( name = 'image_uuid', referencedColumnName = 'uuid', nullable = true ) )
     private ImageModel image

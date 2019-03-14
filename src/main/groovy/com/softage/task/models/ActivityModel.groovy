@@ -10,7 +10,7 @@ class ActivityModel {
     @GeneratedValue( strategy = GenerationType.AUTO, generator = 'native' )
     private Long id
 
-    @OneToOne( cascade = CascadeType.ALL )
+    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true )
     private ImageModel image
 
     boolean equals(o) {
