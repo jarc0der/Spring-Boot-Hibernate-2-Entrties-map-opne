@@ -1,38 +1,39 @@
 package com.softage.task.models
 
-import javax.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
+import org.hibernate.annotations.SortNatural
+
+import javax.persistence.CascadeType
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.OneToMany
+import javax.persistence.Table
+
+import static org.hibernate.annotations.OnDeleteAction.*
 
 @Entity
 @Table( name = 'article' )
 class ArticleModel {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO, generator = 'native' )
-    private Long id
+    @GeneratedValue( strategy = GenerationType.AUTO )
+    Long id
 
-    @OneToOne( cascade = [CascadeType.ALL], orphanRemoval = true )
-//    @JoinTable( name = 'article_image', joinColumns = @JoinColumn ( name = 'article_id' ),
-//    inverseJoinColumns = @JoinColumn( name = 'image_uuid', referencedColumnName = 'uuid', nullable = true ) )
-    private ImageModel image
+    @OneToMany( mappedBy = 'parent', cascade = CascadeType.ALL )
+    @SortNatural
+    public SortedSet<ArticleImageModel> articleImages = new TreeSet<>()
 
+    ArticleModel addArticleImageModel( final ArticleImageModel model ) {
 
-    boolean equals(o) {
-        if (this.is(o)) return true
-        if (getClass() != o.class) return false
+        model.setParent( this )
+        if ( !articleImages.contains( model ) ) {
+            articleImages.add( model )
+        }
 
-        ArticleModel that = (ArticleModel) o
-
-        if (id != that.id) return false
-        if (image != that.image) return false
-
-        return true
-    }
-
-    int hashCode() {
-        int result
-        result = (id != null ? id.hashCode() : 0)
-        result = 31 * result + (image != null ? image.hashCode() : 0)
-        return result
+        return this
     }
 
     Long getId() {
@@ -43,11 +44,11 @@ class ArticleModel {
         this.id = id
     }
 
-    ImageModel getImage() {
-        return image
+    SortedSet<ArticleImageModel> getArticleImages() {
+        return articleImages
     }
 
-    void setImage(ImageModel image) {
-        this.image = image
+    void setArticleImages(SortedSet<ArticleImageModel> articleImages) {
+        this.articleImages = articleImages
     }
 }

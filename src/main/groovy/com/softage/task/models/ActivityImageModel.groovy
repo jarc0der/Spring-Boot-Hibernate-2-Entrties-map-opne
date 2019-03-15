@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table( name = 'activity' )
-class ActivityModel {
+class ActivityImageModel {
 
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO, generator = 'native' )
@@ -17,7 +17,7 @@ class ActivityModel {
         if (this.is(o)) return true
         if (getClass() != o.class) return false
 
-        ActivityModel that = (ActivityModel) o
+        ActivityImageModel that = (ActivityImageModel) o
 
         if (id != that.id) return false
         if (image != that.image) return false
